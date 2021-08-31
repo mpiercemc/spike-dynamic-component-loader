@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ExecutionFormService } from '../../services/execution-form.service';
+import { Component, ComponentFactoryResolver, OnInit, Type, ViewChild } from '@angular/core';
+import { ControlHostDirective } from '../directives/control-host.directive';
+import { GetFormControlsService } from '../services/get-form-controls.service';
+import { ControlComponent } from '../models/control-component';
+
 
 @Component({
   selector: 'app-mike-spike',
@@ -8,9 +11,24 @@ import { ExecutionFormService } from '../../services/execution-form.service';
 })
 export class MikeSpikeComponent implements OnInit {
   formData: any = [];
-  constructor(private executionFormService: ExecutionFormService) { }
+  @ViewChild(ControlHostDirective, {static: true}) controlHost!: ControlHostDirective;
+  interval: number | undefined;
+
+  constructor(private formControlsService: GetFormControlsService, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
-    this.formData = this.executionFormService.getExecutionForm();
+    let formControls = this.formControlsService.getFormControls();
+
+    this.dynamicallyLoadComponent(formControls[0]);
+  }
+
+  dynamicallyLoadComponent(formComponent: ControlComponent) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(formComponent.component);
+
+    const viewContainerRef = this.controlHost.viewContainerRef;
+    viewContainerRef.clear();
+
+    const componentRef = viewContainerRef.createComponent<ControlComponent>(componentFactory);
+    componentRef.instance.data = formComponent.data;
   }
 }
