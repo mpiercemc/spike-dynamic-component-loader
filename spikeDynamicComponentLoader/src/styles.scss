@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "sidebar main"
+    "sidebar main "
+    "sidebar main";
+}
+
+.main-content {
+  grid-area: main;
+}
+.left-nav {
+  grid-area: sidebar;
+}
