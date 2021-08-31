@@ -6,5 +6,4 @@ import { Directive, ViewContainerRef } from '@angular/core';
 export class ControlHostDirective {
 
   constructor(public viewContainerRef: ViewContainerRef) { }
-
 }

@@ -108,6 +108,99 @@
           }
         }
       }
+    },
+    "risk-library": {
+      "projectType": "library",
+      "root": "projects/risk-library",
+      "sourceRoot": "projects/risk-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/risk-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/risk-library/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/risk-library/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/risk-library/src/test.ts",
+            "tsConfig": "projects/risk-library/tsconfig.spec.json",
+            "karmaConfig": "projects/risk-library/karma.conf.js"
+          }
+        }
+      }
+    },
+    "colors-library": {
+      "projectType": "library",
+      "root": "projects/colors-library",
+      "sourceRoot": "projects/colors-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/colors-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/colors-library/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/colors-library/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/colors-library/src/test.ts",
+            "tsConfig": "projects/colors-library/tsconfig.spec.json",
+            "karmaConfig": "projects/colors-library/karma.conf.js"
+          }
+        }
+      }
+    },
+    "form-execution-library": {
+      "projectType": "library",
+      "root": "projects/form-execution-library",
+      "sourceRoot": "projects/form-execution-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/form-execution-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/form-execution-library/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/form-execution-library/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/form-execution-library/src/test.ts",
+            "tsConfig": "projects/form-execution-library/tsconfig.spec.json",
+            "karmaConfig": "projects/form-execution-library/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "spikeDynamicComponentLoader"

@@ -14,6 +14,20 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "colors-library": [
+        "dist/colors-library/colors-library",
+        "dist/colors-library"
+      ],
+      "form-execution-library": [
+        "dist/form-execution-library/form-execution-library",
+        "dist/form-execution-library"
+      ],
+      "risk-library": [
+        "dist/risk-library/risk-library",
+        "dist/risk-library"
+      ]
+    },
     "target": "es2017",
     "module": "es2020",
     "lib": [
