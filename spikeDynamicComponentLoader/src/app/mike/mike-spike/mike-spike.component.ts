@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExecutionFormService } from '../../services/execution-form.service';
 
 @Component({
   selector: 'app-mike-spike',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mike-spike.component.scss']
 })
 export class MikeSpikeComponent implements OnInit {
-
-  constructor() { }
+  formData: any = [];
+  constructor(private executionFormService: ExecutionFormService) { }
 
   ngOnInit(): void {
+    this.formData = this.executionFormService.getExecutionForm();
   }
-
 }
