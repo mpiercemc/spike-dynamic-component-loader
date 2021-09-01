@@ -7,6 +7,7 @@ import { MikeSpikeComponent } from './mike/mike-spike/mike-spike.component';
 import { RiskLibraryModule } from '../../projects/risk-library/src/lib/risk-library.module';
 import { ColorsLibraryModule } from '../../projects/colors-library/src/lib/colors-library.module';
 import { FormExecutionLibraryModule } from '../../projects/form-execution-library/src/lib/form-execution-library.module';
+import { CoreModule } from "./shared/core.module";
 
 @NgModule({
   declarations: [
@@ -18,8 +19,10 @@ import { FormExecutionLibraryModule } from '../../projects/form-execution-librar
     AppRoutingModule,
     RiskLibraryModule,
     ColorsLibraryModule,
-    FormExecutionLibraryModule
+    FormExecutionLibraryModule,
+    CoreModule.forRoot()
   ],
+  exports: [CoreModule],
   providers: [],
   bootstrap: [AppComponent]
 })

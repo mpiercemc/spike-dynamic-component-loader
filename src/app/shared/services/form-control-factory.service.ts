@@ -4,9 +4,10 @@
    lazy loaded modules, can we still get size benefits
  */
 
-import { Injectable } from '@angular/core';
+import {Injectable, Optional, SkipSelf} from '@angular/core';
 import { CustomControl } from '../../../../projects/form-execution-library/src/lib/models/form-data';
 import { ControlComponent } from '../../../../projects/form-execution-library/src/lib/models/control-component';
+import {CoreModule} from "../core.module";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,11 @@ export class FormControlFactoryService {
 
   componentLoaders = new Map();
 
-  constructor() {
+  constructor(@Optional() @SkipSelf() parentModule?: CoreModule) {
+    if (parentModule) {
+      throw new Error(
+        'GreetingModule is already loaded. Import it in the AppModule only');
+    }
   }
 
   registerComponentType(type: string, componentLoader: Function){

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControlFactoryService } from '../../../../src/app/mike/services/form-control-factory.service';
+import { FormControlFactoryService } from '../../../../src/app/shared/services/form-control-factory.service';
 import { RiskLibraryComponent } from './risk-library.component';
 import { ControlComponent } from '../../../form-execution-library/src/lib/models/control-component';
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormExecutionLibraryComponent } from './form-execution-library.component';
 import { ControlHostDirective } from './directives/control-host.directive';
+import {CoreModule} from "../../../../src/app/shared/core.module";
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { ControlHostDirective } from './directives/control-host.directive';
     ControlHostDirective
   ],
   imports: [
+    CoreModule
   ],
   exports: [
     FormExecutionLibraryComponent,

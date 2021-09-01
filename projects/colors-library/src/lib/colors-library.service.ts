@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormControlFactoryService } from '../../../../src/app/mike/services/form-control-factory.service';
 import { ColorsLibraryComponent } from './colors-library.component';
 import { ControlComponent } from '../../../form-execution-library/src/lib/models/control-component';
+import {FormControlFactoryService} from "../../../../src/app/shared/services/form-control-factory.service";
 
 @Injectable({
   providedIn: 'root'

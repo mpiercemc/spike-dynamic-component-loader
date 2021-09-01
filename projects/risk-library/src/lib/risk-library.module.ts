@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RiskLibraryComponent } from './risk-library.component';
-import { FormControlFactoryService } from '../../../../src/app/mike/services/form-control-factory.service';
 import { RiskLibraryService } from './risk-library.service';
+import {CoreModule} from "../../../../src/app/shared/core.module";
 
 
 
@@ -10,10 +10,9 @@ import { RiskLibraryService } from './risk-library.service';
     RiskLibraryComponent
   ],
   imports: [
+    CoreModule
   ],
-  providers: [
-    FormControlFactoryService
-  ],
+  providers: [],
   exports: [
     RiskLibraryComponent
   ]
