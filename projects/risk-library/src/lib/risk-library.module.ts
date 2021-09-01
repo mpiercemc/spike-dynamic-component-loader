@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RiskLibraryComponent } from './risk-library.component';
-import { RiskLibraryService } from './risk-library.service';
-import {CoreModule} from "../../../../src/app/shared/core.module";
+import { CoreModule } from "../../../../src/app/shared/core.module";
+import { FormControlFactoryService } from '../../../../src/app/shared/services/form-control-factory.service';
+import { ControlComponent } from '../../../form-execution-library/src/lib/models/control-component';
 
 
 
@@ -18,6 +19,10 @@ import {CoreModule} from "../../../../src/app/shared/core.module";
   ]
 })
 export class RiskLibraryModule {
-  constructor(private riskLibraryService: RiskLibraryService) {
+  constructor(private formControlFactoryService: FormControlFactoryService) {
+    this.formControlFactoryService.registerComponentType('RiskLibraryComponent', this.getRiskComponentType);
+  }
+  getRiskComponentType(data: any): ControlComponent{
+    return new ControlComponent(RiskLibraryComponent, data);
   }
 }
