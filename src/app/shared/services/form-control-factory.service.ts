@@ -5,9 +5,16 @@
  */
 
 import {Injectable, Optional, SkipSelf} from '@angular/core';
-import { CustomControl } from '../../../../projects/form-execution-library/src/lib/models/form-data';
+import {
+  CustomControl
+} from '../../../../projects/form-execution-library/src/lib/models/form-data';
 import { ControlComponent } from '../../../../projects/form-execution-library/src/lib/models/control-component';
-import {CoreModule} from "../core.module";
+import { CoreModule } from "../core.module";
+import { ControlComponentType } from '../../../../projects/form-execution-library/src/lib/models/control-component-type';
+
+interface GetControlComponentFunc {
+  (data: ControlComponentType): ControlComponent;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +26,11 @@ export class FormControlFactoryService {
   constructor(@Optional() @SkipSelf() parentModule?: CoreModule) {
     if (parentModule) {
       throw new Error(
-        'GreetingModule is already loaded. Import it in the AppModule only');
+        'FormControlFactoryService is already loaded. Import it in the AppModule only');
     }
   }
 
-  registerComponentType(type: string, componentLoader: Function){
+  registerComponentType(type: string, componentLoader: GetControlComponentFunc){
     this.componentLoaders.set(type, componentLoader);
   }
 
