@@ -33,7 +33,7 @@ export class FormExecutionLibraryComponent implements OnInit {
 
   ngOnInit(): void {
     let formControls = this.formControlsLibaryService.getFormControls();
-    this.dynamicallyLoadComponent(formControls[0]);
+    this.dynamicallyLoadComponent(formControls[1]);
   }
 
   dynamicallyLoadComponent(formComponent: ControlComponent) {

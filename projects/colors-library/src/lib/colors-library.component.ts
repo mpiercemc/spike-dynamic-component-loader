@@ -7,7 +7,7 @@ import { ControlComponentType } from '../../../form-execution-library/src/lib/mo
     <div class="component-styles">
       <p>COLORS LIBRARY! Custom Control</p>
       <div>State: {{data.state}}</div>
-      <div>Configuration: {{data.state}}</div>
+      <div>Configuration: {{data.config}}</div>
       <div>ID: {{data.id}}</div>
     </div>
 
