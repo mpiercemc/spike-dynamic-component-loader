@@ -1,24 +1,39 @@
 import { Injectable } from '@angular/core';
 import { ControlComponent } from '../models/control-component';
-import {
-  LibraryExecutionFormServiceService,
-} from './library-execution-form-service.service';
-import { ControlComponentType } from '../models/form-data';
+import { LibraryExecutionFormServiceService } from './library-execution-form-service.service';
 import { FormControlFactoryService } from '../../../../../src/app/shared/services/form-control-factory.service';
+import { Subject } from 'rxjs';
+
+import { takeUntil } from 'rxjs/operators';
+import { CustomControl } from '../models/form-data';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GetFormControlsLibraryService {
-  constructor(private executionFormService: LibraryExecutionFormServiceService, private formControlFactory: FormControlFactoryService) {
+  private destroy$ = new Subject<void>();
+
+  constructor(
+    private executionFormService: LibraryExecutionFormServiceService,
+    private formControlFactory: FormControlFactoryService
+  ) {}
+
+  getFormControls(): ControlComponent[] {
+    let controls: ControlComponent[] = [];
+
+    this.executionFormService
+      .getExecutionForm()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ formComponents }) =>
+        formComponents.forEach((control) => {
+          controls.push(this.formControlFactory.getComponent(control));
+        })
+      );
+
+    return controls;
   }
 
-  getFormControls(): ControlComponent[]{
-    let controls: ControlComponent[] = [];
-    let formControlData: ControlComponentType = this.executionFormService.getExecutionForm();
-    for(const control of formControlData.formComponents){
-      controls.push(this.formControlFactory.getComponent(control));
-    }
-    return controls;
+  addComponent<T extends CustomControl>(component: T) {
+    this.executionFormService.addComponent(component);
   }
 }

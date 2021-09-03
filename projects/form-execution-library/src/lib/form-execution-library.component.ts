@@ -1,4 +1,9 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ControlHostDirective } from './directives/control-host.directive';
 import { ControlComponent } from './models/control-component';
 import { GetFormControlsLibraryService } from './services/get-form-controls-library.service';
@@ -12,37 +17,92 @@ import { GetFormControlsLibraryService } from './services/get-form-controls-libr
   template: `
     <p>mike-spike works!</p>
 
+    <div>Load the following components dynamically from the json data</div>
+
     <div>
-      Load the following components dynamically from the json data
-    </div>
-
-    <div class="ad-banner-example">
       <h3>Custom Form Controls</h3>
-      <ng-template controlHost></ng-template>
-    </div>
 
+      <button (click)="addColorsLibraryComponent()">
+        Add ColorsLibraryComponent
+      </button>
+
+      <button (click)="addRiskLibraryComponent()">
+        Add ColorsLibraryComponent
+      </button>
+
+      <ng-template controlHost></ng-template>
+
+      <ng-template #dynamicContainer></ng-template>
+    </div>
   `,
-  styles: [
-  ]
+  styles: [],
 })
 export class FormExecutionLibraryComponent implements OnInit {
-  @ViewChild(ControlHostDirective, {static: true}) controlHost!: ControlHostDirective;
+  private _elements: ControlComponent[] = [];
+
+  @ViewChild(ControlHostDirective, { static: true })
+  controlHost!: ControlHostDirective;
   interval: number | undefined;
 
-  constructor(private formControlsLibaryService: GetFormControlsLibraryService, private componentFactoryResolver: ComponentFactoryResolver) { }
-
-  ngOnInit(): void {
-    let formControls = this.formControlsLibaryService.getFormControls();
-    this.dynamicallyLoadComponent(formControls[1]);
-  }
-
-  dynamicallyLoadComponent(formComponent: ControlComponent) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(formComponent.component);
+  private refreshView() {
     const viewContainerRef = this.controlHost.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent<ControlComponent>(componentFactory);
-    componentRef.instance.data = formComponent.data;
+    this.ngOnInit();
   }
 
+  constructor(
+    private formControlsLibaryService: GetFormControlsLibraryService,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
+
+  ngOnInit(): void {
+    let formControls = this.formControlsLibaryService.getFormControls();
+
+    formControls.forEach((component) => {
+      this.dynamicallyLoadComponent(component);
+    });
+  }
+
+  dynamicallyLoadComponent(formComponent: ControlComponent): ControlComponent {
+    const componentFactory =
+      this.componentFactoryResolver.resolveComponentFactory(
+        formComponent.component
+      );
+    const viewContainerRef = this.controlHost.viewContainerRef;
+    const componentRef =
+      viewContainerRef.createComponent<ControlComponent>(componentFactory);
+    const newItem: ControlComponent = componentRef.instance;
+
+    this._elements.push(newItem);
+    componentRef.instance.data = formComponent.data;
+
+    return formComponent;
+  }
+
+  addColorsLibraryComponent() {
+    this.formControlsLibaryService.addComponent({
+      type: 'ColorsLibraryComponent',
+      data: {
+        state: "I'm Colors Library",
+        config: '{isLibrary: true, isAwesome: true}',
+        id: 'dfaf3awmpsdcksmaf323g',
+      },
+    });
+
+    this.refreshView();
+  }
+
+  addRiskLibraryComponent() {
+    this.formControlsLibaryService.addComponent({
+      type: 'RiskLibraryComponent',
+      data: {
+        state: "I'm Colors Library",
+        config: '{isLibrary: true, isAwesome: true}',
+        id: 'dfaf3awmpsdcksmaf323g',
+      },
+    });
+
+    this.refreshView();
+  }
 }
