@@ -5,7 +5,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlHostDirective } from './directives/control-host.directive';
-import { ControlComponent } from './models/control-component';
+import {
+  ControlComponent,
+  ExecutionControlType,
+} from './models/control-component';
 import { GetFormControlsLibraryService } from './services/get-form-controls-library.service';
 /*
   TODO: Figure out how to dynamically load multiple custom form controls, not just a single one.
@@ -27,7 +30,7 @@ import { GetFormControlsLibraryService } from './services/get-form-controls-libr
       </button>
 
       <button (click)="addRiskLibraryComponent()">
-        Add ColorsLibraryComponent
+        Add RiskLibraryComponent
       </button>
 
       <ng-template controlHost></ng-template>
@@ -38,7 +41,7 @@ import { GetFormControlsLibraryService } from './services/get-form-controls-libr
   styles: [],
 })
 export class FormExecutionLibraryComponent implements OnInit {
-  private _elements: ControlComponent[] = [];
+  private _elements: ExecutionControlType[] = [];
 
   @ViewChild(ControlHostDirective, { static: true })
   controlHost!: ControlHostDirective;
@@ -71,8 +74,8 @@ export class FormExecutionLibraryComponent implements OnInit {
       );
     const viewContainerRef = this.controlHost.viewContainerRef;
     const componentRef =
-      viewContainerRef.createComponent<ControlComponent>(componentFactory);
-    const newItem: ControlComponent = componentRef.instance;
+      viewContainerRef.createComponent<ExecutionControlType>(componentFactory);
+    const newItem: ExecutionControlType = componentRef.instance;
 
     this._elements.push(newItem);
     componentRef.instance.data = formComponent.data;
@@ -97,9 +100,9 @@ export class FormExecutionLibraryComponent implements OnInit {
     this.formControlsLibaryService.addComponent({
       type: 'RiskLibraryComponent',
       data: {
-        state: "I'm Colors Library",
+        state: 'holy smokes',
         config: '{isLibrary: true, isAwesome: true}',
-        id: 'dfaf3awmpsdcksmaf323g',
+        id: 'ffr43qwg3fsdg4g4ep4',
       },
     });
 

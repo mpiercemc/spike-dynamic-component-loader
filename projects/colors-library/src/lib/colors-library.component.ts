@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ControlComponentType } from '../../../form-execution-library/src/lib/models/control-component-type';
+import { ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'lib-colors-library',
@@ -13,7 +14,15 @@ import { ControlComponentType } from '../../../form-execution-library/src/lib/mo
   `,
   styles: [],
 })
-export class ColorsLibraryComponent implements ControlComponentType {
+export class ColorsLibraryComponent
+  implements ControlComponentType, ControlValueAccessor
+{
   @Input() data = { state: '', config: '', id: '' };
   constructor() {}
+
+  registerOnChange(fn: any): void {}
+
+  registerOnTouched(fn: any): void {}
+
+  writeValue(obj: any): void {}
 }
