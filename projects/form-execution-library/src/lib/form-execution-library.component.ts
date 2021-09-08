@@ -10,6 +10,7 @@ import {
   ExecutionControlType,
 } from './models/control-component';
 import { GetFormControlsLibraryService } from './services/get-form-controls-library.service';
+
 /*
   TODO: Figure out how to dynamically load multiple custom form controls, not just a single one.
    The current example uses the controlHost directive which is referenced directly in the ts file
@@ -25,20 +26,35 @@ import { GetFormControlsLibraryService } from './services/get-form-controls-libr
     <div>
       <h3>Custom Form Controls</h3>
 
-      <button (click)="addColorsLibraryComponent()">
+      <button
+        (click)="addColorsLibraryComponent()"
+        mat-raised-button
+        color="primary"
+      >
         Add ColorsLibraryComponent
       </button>
 
-      <button (click)="addRiskLibraryComponent()">
+      <button
+        (click)="addRiskLibraryComponent()"
+        mat-raised-button
+        color="primary"
+      >
         Add RiskLibraryComponent
       </button>
 
-      <ng-template controlHost></ng-template>
-
-      <ng-template #dynamicContainer></ng-template>
+      <div class="component-list">
+        <ng-template controlHost></ng-template>
+      </div>
     </div>
   `,
-  styles: [],
+  styles: [
+    `
+      .component-list {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    `,
+  ],
 })
 export class FormExecutionLibraryComponent implements OnInit {
   private _elements: ExecutionControlType[] = [];

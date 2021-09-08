@@ -5,12 +5,12 @@ import { ControlValueAccessor } from '@angular/forms';
 @Component({
   selector: 'lib-colors-library',
   template: `
-    <div class="component-styles">
+    <mat-card>
       <p>COLORS LIBRARY! Custom Control</p>
       <div>State: {{ data.state }}</div>
       <div>Configuration: {{ data.config }}</div>
       <div>ID: {{ data.id }}</div>
-    </div>
+    </mat-card>
   `,
   styles: [],
 })
