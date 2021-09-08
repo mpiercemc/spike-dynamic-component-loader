@@ -4,5 +4,5 @@ export interface RequiredControlData {
   id: any;
 }
 export interface ControlComponentType {
-  data: RequiredControlData
+  data: RequiredControlData;
 }
