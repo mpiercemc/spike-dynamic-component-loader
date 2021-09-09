@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RiskLibraryComponent } from './risk-library.component';
+import { RiskLibraryComponent } from './components/risk-library.component';
 import { CoreModule } from '../../../../src/app/shared/core.module';
 import { FormControlFactoryService } from '../../../../src/app/shared/services/form-control-factory.service';
-import { ControlComponent } from '../../../form-execution-library/src/lib/models/control-component';
-import { ControlComponentType } from '../../../form-execution-library/src/lib/models/control-component-type';
+import { CustomComponent } from '../../../form-execution-library/src/lib/models/custom-component';
 import { MatCardModule } from '@angular/material/card';
+import { ComponentData } from 'projects/form-execution-library/src/lib/models/component-data';
 
 @NgModule({
   declarations: [RiskLibraryComponent],
@@ -19,7 +19,8 @@ export class RiskLibraryModule {
       this.getRiskComponentType
     );
   }
-  getRiskComponentType(data: ControlComponentType): ControlComponent {
-    return new ControlComponent(RiskLibraryComponent, data);
+
+  getRiskComponentType(data: ComponentData): CustomComponent {
+    return new CustomComponent(RiskLibraryComponent, data);
   }
 }

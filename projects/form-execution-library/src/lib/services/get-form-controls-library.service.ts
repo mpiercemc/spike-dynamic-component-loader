@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ControlComponent } from '../models/control-component';
+import { CustomComponent } from '../models/custom-component';
 import { LibraryExecutionFormServiceService } from './library-execution-form-service.service';
 import { FormControlFactoryService } from '../../../../../src/app/shared/services/form-control-factory.service';
 import { Subject } from 'rxjs';
 
 import { takeUntil } from 'rxjs/operators';
-import { CustomControl } from '../models/form-data';
+import { CustomComponentDataObject } from '../models/custom-component-data-object';
 
 @Injectable({
   providedIn: 'root',
@@ -18,22 +18,22 @@ export class GetFormControlsLibraryService {
     private formControlFactory: FormControlFactoryService
   ) {}
 
-  getFormControls(): ControlComponent[] {
-    let controls: ControlComponent[] = [];
+  getFormControls(): CustomComponent[] {
+    const componentList: CustomComponent[] = [];
 
     this.executionFormService
       .getExecutionForm()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(({ formComponents }) =>
-        formComponents.forEach((control) => {
-          controls.push(this.formControlFactory.getComponent(control));
+      .subscribe((components) =>
+        components.forEach((component) => {
+          componentList.push(this.formControlFactory.getComponent(component));
         })
       );
 
-    return controls;
+    return componentList;
   }
 
-  addComponent<T extends CustomControl>(component: T) {
-    this.executionFormService.addComponent(component);
+  addComponent(componentDataObject: CustomComponentDataObject) {
+    this.executionFormService.addComponent(componentDataObject);
   }
 }

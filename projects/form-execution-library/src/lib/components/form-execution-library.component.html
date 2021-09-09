@@ -1,0 +1,27 @@
+<div>Load the following components dynamically from the json data</div>
+
+<div>
+  <h3>Custom Form Controls</h3>
+
+  <div class="actions">
+    <button
+      (click)="addColorsLibraryComponent()"
+      mat-raised-button
+      color="primary"
+    >
+      Add ColorsLibraryComponent
+    </button>
+
+    <button
+      (click)="addRiskLibraryComponent()"
+      mat-raised-button
+      color="primary"
+    >
+      Add RiskLibraryComponent
+    </button>
+  </div>
+
+  <div class="component-list">
+    <ng-template controlHost></ng-template>
+  </div>
+</div>

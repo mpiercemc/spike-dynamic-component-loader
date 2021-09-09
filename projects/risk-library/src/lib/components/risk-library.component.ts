@@ -1,16 +1,18 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ControlComponentType } from '../../../form-execution-library/src/lib/models/control-component-type';
+import { CustomComponentData } from '../../../../form-execution-library/src/lib/models/custom-component-data';
 import { ControlValueAccessor } from '@angular/forms';
+import { ComponentData } from 'projects/form-execution-library/src/lib/models/component-data';
 
 @Component({
   selector: 'lib-risk-library',
   templateUrl: './lib-risk-library.component.html',
-  styles: [],
+  styleUrls: ['./lib-risk-library.component.scss'],
 })
 export class RiskLibraryComponent
-  implements ControlComponentType, ControlValueAccessor
+  implements CustomComponentData, ControlValueAccessor
 {
-  @Input() data = { state: '', config: '', id: '' };
+  @Input() data!: ComponentData;
+
   constructor(private elementRef: ElementRef) {}
 
   registerOnChange(fn: any): void {}

@@ -4,37 +4,42 @@
    lazy loaded modules, can we still get size benefits
  */
 
-import {Injectable, Optional, SkipSelf} from '@angular/core';
-import {
-  CustomControl
-} from '../../../../projects/form-execution-library/src/lib/models/form-data';
-import { ControlComponent } from '../../../../projects/form-execution-library/src/lib/models/control-component';
-import { CoreModule } from "../core.module";
-import { ControlComponentType } from '../../../../projects/form-execution-library/src/lib/models/control-component-type';
+import { Injectable, Optional, SkipSelf } from '@angular/core';
+import { CustomComponentDataObject } from '../../../../projects/form-execution-library/src/lib/models/custom-component-data-object';
+import { CustomComponent } from '../../../../projects/form-execution-library/src/lib/models/custom-component';
+import { CoreModule } from '../core.module';
+import { ComponentData } from 'projects/form-execution-library/src/lib/models/component-data';
 
 interface GetControlComponentFunc {
-  (data: ControlComponentType): ControlComponent;
+  (data: ComponentData): CustomComponent;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormControlFactoryService {
-
   componentLoaders = new Map();
 
   constructor(@Optional() @SkipSelf() parentModule?: CoreModule) {
     if (parentModule) {
       throw new Error(
-        'FormControlFactoryService is already loaded. Import it in the AppModule only');
+        'FormControlFactoryService is already loaded. Import it in the AppModule only'
+      );
     }
   }
 
-  registerComponentType(type: string, componentLoader: GetControlComponentFunc){
+  registerComponentType(
+    type: string,
+    componentLoader: GetControlComponentFunc
+  ) {
     this.componentLoaders.set(type, componentLoader);
   }
 
-  getComponent(formControlData: CustomControl): ControlComponent|any{
-    return this.componentLoaders.get(formControlData.type)(formControlData.data);
+  getComponent(
+    componentDataObject: CustomComponentDataObject
+  ): CustomComponent | any {
+    return this.componentLoaders.get(componentDataObject.type)(
+      componentDataObject.data
+    );
   }
 }

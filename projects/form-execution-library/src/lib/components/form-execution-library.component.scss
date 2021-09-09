@@ -1,0 +1,12 @@
+.component-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.actions {
+  display: flex;
+
+  button {
+    margin: 10px;
+  }
+}

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { ColorsLibraryComponent } from './colors-library.component';
 import { FormControlFactoryService } from '../../../../src/app/shared/services/form-control-factory.service';
-import { ControlComponent } from '../../../form-execution-library/src/lib/models/control-component';
-import { ControlComponentType } from '../../../form-execution-library/src/lib/models/control-component-type';
+import { CustomComponent } from '../../../form-execution-library/src/lib/models/custom-component';
 import { MatCardModule } from '@angular/material/card';
+import { ColorsLibraryComponent } from '../public-api';
+import { ComponentData } from 'projects/form-execution-library/src/lib/models/component-data';
 
 @NgModule({
   declarations: [ColorsLibraryComponent],
@@ -17,7 +17,8 @@ export class ColorsLibraryModule {
       this.getColorsComponentType
     );
   }
-  getColorsComponentType(data: ControlComponentType): ControlComponent {
-    return new ControlComponent(ColorsLibraryComponent, data);
+
+  getColorsComponentType(data: ComponentData): CustomComponent {
+    return new CustomComponent(ColorsLibraryComponent, data);
   }
 }
