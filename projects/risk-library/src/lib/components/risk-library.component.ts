@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { CustomComponentData } from '../../../../form-execution-library/src/lib/models/custom-component-data';
+import { CustomComponentType } from '../../../../form-execution-library/src/lib/models/custom-component-type';
 import { ControlValueAccessor } from '@angular/forms';
 import { ComponentData } from 'projects/form-execution-library/src/lib/models/component-data';
 
@@ -9,7 +9,7 @@ import { ComponentData } from 'projects/form-execution-library/src/lib/models/co
   styleUrls: ['./lib-risk-library.component.scss'],
 })
 export class RiskLibraryComponent
-  implements CustomComponentData, ControlValueAccessor
+  implements CustomComponentType, ControlValueAccessor
 {
   @Input() data!: ComponentData;
 

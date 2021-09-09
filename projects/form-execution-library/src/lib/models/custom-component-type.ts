@@ -1,5 +1,5 @@
 import { ComponentData } from './component-data';
 
-export interface CustomComponentData {
+export interface CustomComponentType {
   data: ComponentData;
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CustomComponentData } from '../../../../form-execution-library/src/lib/models/custom-component-data';
+import { CustomComponentType } from '../../../../form-execution-library/src/lib/models/custom-component-type';
 import { ControlValueAccessor } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,7 @@ import { ControlValueAccessor } from '@angular/forms';
   styleUrls: ['colors-library.component.scss'],
 })
 export class ColorsLibraryComponent
-  implements CustomComponentData, ControlValueAccessor
+  implements CustomComponentType, ControlValueAccessor
 {
   @Input() data = { state: '', config: '', id: '' };
   constructor() {}
