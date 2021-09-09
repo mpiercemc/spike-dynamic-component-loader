@@ -21,7 +21,6 @@ import { GetFormControlsLibraryService } from '../services/get-form-controls-lib
 export class FormExecutionLibraryComponent implements OnInit {
   @ViewChild(ControlHostDirective, { static: true })
   controlHost!: ControlHostDirective;
-  interval: number | undefined;
 
   private refreshView() {
     const viewContainerRef = this.controlHost.viewContainerRef;
