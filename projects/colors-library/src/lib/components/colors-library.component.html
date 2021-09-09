@@ -1,6 +1,17 @@
 <mat-card>
-  <p>COLORS LIBRARY! Custom Control</p>
-  <div>State: {{ data.state }}</div>
-  <div>Configuration: {{ data.config }}</div>
-  <div>ID: {{ data.id }}</div>
+  <mat-card-title>COLORS LIBRARY! Custom Control</mat-card-title>
+
+  <mat-card-subtitle>ID: {{ data.id }}</mat-card-subtitle>
+
+  <mat-card-content>
+    <div>State: {{ data.state }}</div>
+
+    <div>Configuration: {{ data.config }}</div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="removeComponent()">
+      DELETE
+    </button>
+  </mat-card-actions>
 </mat-card>

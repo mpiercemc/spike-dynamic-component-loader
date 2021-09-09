@@ -3,16 +3,13 @@ import {
   ComponentFactoryResolver,
   OnInit,
   ViewChild,
+  ViewRef,
 } from '@angular/core';
 import { ControlHostDirective } from '../directives/control-host.directive';
 import { CustomComponent } from '../models/custom-component';
+import { CustomComponentDataObject } from '../models/custom-component-data-object';
 import { GetFormControlsLibraryService } from '../services/get-form-controls-library.service';
 
-/*
-  TODO: Figure out how to dynamically load multiple custom form controls, not just a single one.
-   The current example uses the controlHost directive which is referenced directly in the ts file
-   Is it possible to append multiple on this view? Or loop through custom controls in the template
- */
 @Component({
   selector: 'lib-form-execution-library',
   templateUrl: 'form-execution-library.component.html',
@@ -21,13 +18,7 @@ import { GetFormControlsLibraryService } from '../services/get-form-controls-lib
 export class FormExecutionLibraryComponent implements OnInit {
   @ViewChild(ControlHostDirective, { static: true })
   controlHost!: ControlHostDirective;
-
-  private refreshView() {
-    const viewContainerRef = this.controlHost.viewContainerRef;
-    viewContainerRef.clear();
-
-    this.ngOnInit();
-  }
+  private _id = 0;
 
   constructor(
     private formControlsLibaryService: GetFormControlsLibraryService,
@@ -35,7 +26,7 @@ export class FormExecutionLibraryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let formControls = this.formControlsLibaryService.getFormControls();
+    let formControls = this.formControlsLibaryService.getCustomComponents();
 
     formControls.forEach((component) => {
       this.dynamicallyLoadComponent(component);
@@ -47,37 +38,53 @@ export class FormExecutionLibraryComponent implements OnInit {
       this.componentFactoryResolver.resolveComponentFactory(
         formComponent.component
       );
-    const viewContainerRef = this.controlHost.viewContainerRef;
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    debugger;
-    componentRef.instance.data = formComponent.data;
+    const { instance, hostView } =
+      this.controlHost.viewContainerRef.createComponent(componentFactory);
+
+    instance.data = formComponent.data;
+    instance.removeComponentEvent.subscribe(() => {
+      this.removeComponent(hostView);
+    });
 
     return formComponent;
   }
 
   addColorsLibraryComponent() {
-    this.formControlsLibaryService.addComponent({
+    const component: CustomComponentDataObject = {
       type: 'ColorsLibraryComponent',
       data: {
         state: "I'm Colors Library",
         config: '{isLibrary: true, isAwesome: true}',
-        id: 'dfaf3awmpsdcksmaf323g',
+        id: `${this._id++}`,
       },
-    });
+    };
 
-    this.refreshView();
+    const customComponent =
+      this.formControlsLibaryService.addComponent(component);
+
+    this.dynamicallyLoadComponent(customComponent);
   }
 
   addRiskLibraryComponent() {
-    this.formControlsLibaryService.addComponent({
+    const component: CustomComponentDataObject = {
       type: 'RiskLibraryComponent',
       data: {
         state: 'holy smokes',
         config: '{isLibrary: true, isAwesome: true}',
-        id: 'ffr43qwg3fsdg4g4ep4',
+        id: `${this._id++}`,
       },
-    });
+    };
 
-    this.refreshView();
+    const customComponent =
+      this.formControlsLibaryService.addComponent(component);
+
+    this.dynamicallyLoadComponent(customComponent);
+  }
+
+  removeComponent(componentRef: ViewRef) {
+    const viewContainerRef = this.controlHost.viewContainerRef;
+    const index = viewContainerRef.indexOf(componentRef);
+    viewContainerRef.remove(index);
+    this.formControlsLibaryService.removeComponent(index);
   }
 }

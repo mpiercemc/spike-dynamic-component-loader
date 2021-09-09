@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CustomComponentType } from '../../../../form-execution-library/src/lib/models/custom-component-type';
 import { ControlValueAccessor } from '@angular/forms';
 import { ComponentData } from 'projects/form-execution-library/src/lib/models/component-data';
@@ -12,6 +18,7 @@ export class RiskLibraryComponent
   implements CustomComponentType, ControlValueAccessor
 {
   @Input() data!: ComponentData;
+  @Output() removeComponentEvent = new EventEmitter<string>();
 
   constructor(private elementRef: ElementRef) {}
 
@@ -20,4 +27,8 @@ export class RiskLibraryComponent
   registerOnTouched(fn: any): void {}
 
   writeValue(obj: any): void {}
+
+  removeComponent() {
+    this.removeComponentEvent.emit(this.data.id);
+  }
 }

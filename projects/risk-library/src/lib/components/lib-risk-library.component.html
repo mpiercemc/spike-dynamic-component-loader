@@ -1,9 +1,17 @@
 <mat-card>
-  <p>Risk Library Custom Control</p>
+  <mat-card-title>Risk Library Custom Control</mat-card-title>
 
-  <div>State: {{ data.state }}</div>
+  <mat-card-subtitle>ID: {{ data.id }}</mat-card-subtitle>
 
-  <div>Configuration: {{ data.config }}</div>
+  <mat-card-content>
+    <div>State: {{ data.state }}</div>
 
-  <div>ID: {{ data.id }}</div>
+    <div>Configuration: {{ data.config }}</div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="removeComponent()">
+      DELETE
+    </button>
+  </mat-card-actions>
 </mat-card>

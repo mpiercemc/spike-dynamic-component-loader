@@ -3,10 +3,11 @@ import { FormExecutionLibraryComponent } from './components/form-execution-libra
 import { ControlHostDirective } from './directives/control-host.directive';
 import { CoreModule } from '../../../../src/app/shared/core.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [FormExecutionLibraryComponent, ControlHostDirective],
-  imports: [CoreModule, MatButtonModule],
+  imports: [CoreModule, MatButtonModule, MatIconModule],
   exports: [FormExecutionLibraryComponent],
 })
 export class FormExecutionLibraryModule {}

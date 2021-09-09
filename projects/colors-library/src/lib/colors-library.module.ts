@@ -4,10 +4,12 @@ import { CustomComponent } from '../../../form-execution-library/src/lib/models/
 import { MatCardModule } from '@angular/material/card';
 import { ColorsLibraryComponent } from '../public-api';
 import { ComponentData } from 'projects/form-execution-library/src/lib/models/component-data';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [ColorsLibraryComponent],
-  imports: [MatCardModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule],
   exports: [ColorsLibraryComponent],
 })
 export class ColorsLibraryModule {
@@ -16,7 +18,7 @@ export class ColorsLibraryModule {
       We can rights check and only register components that the user has rights too here. (ex: which scrabble tiles should show up)
      */
     const shouldShowScrabbleTile = true;
-    if(shouldShowScrabbleTile){
+    if (shouldShowScrabbleTile) {
       this.formControlFactoryService.registerComponentType(
         'ColorsLibraryComponent',
         this.getColorsComponentType

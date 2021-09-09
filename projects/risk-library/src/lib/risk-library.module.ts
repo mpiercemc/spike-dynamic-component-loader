@@ -5,10 +5,12 @@ import { FormControlFactoryService } from '../../../../src/app/shared/services/f
 import { CustomComponent } from '../../../form-execution-library/src/lib/models/custom-component';
 import { MatCardModule } from '@angular/material/card';
 import { ComponentData } from 'projects/form-execution-library/src/lib/models/component-data';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [RiskLibraryComponent],
-  imports: [CoreModule, MatCardModule],
+  imports: [CoreModule, MatCardModule, MatIconModule, MatButtonModule],
   providers: [],
   exports: [RiskLibraryComponent],
 })

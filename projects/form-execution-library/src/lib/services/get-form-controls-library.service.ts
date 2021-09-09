@@ -3,7 +3,6 @@ import { CustomComponent } from '../models/custom-component';
 import { LibraryExecutionFormServiceService } from './library-execution-form-service.service';
 import { FormControlFactoryService } from '../../../../../src/app/shared/services/form-control-factory.service';
 import { Subject } from 'rxjs';
-
 import { takeUntil } from 'rxjs/operators';
 import { CustomComponentDataObject } from '../models/custom-component-data-object';
 
@@ -12,28 +11,41 @@ import { CustomComponentDataObject } from '../models/custom-component-data-objec
 })
 export class GetFormControlsLibraryService {
   private destroy$ = new Subject<void>();
+  private componentList: CustomComponent[] = [];
 
   constructor(
     private executionFormService: LibraryExecutionFormServiceService,
     private formControlFactory: FormControlFactoryService
   ) {}
 
-  getFormControls(): CustomComponent[] {
-    const componentList: CustomComponent[] = [];
-
+  getCustomComponents(): CustomComponent[] {
     this.executionFormService
       .getExecutionForm()
       .pipe(takeUntil(this.destroy$))
       .subscribe((components) =>
         components.forEach((component) => {
-          componentList.push(this.formControlFactory.getComponent(component));
+          this.componentList.push(
+            this.formControlFactory.getComponent(component)
+          );
         })
       );
 
-    return componentList;
+    return this.componentList;
   }
 
-  addComponent(componentDataObject: CustomComponentDataObject) {
+  addComponent(
+    componentDataObject: CustomComponentDataObject
+  ): CustomComponent {
     this.executionFormService.addComponent(componentDataObject);
+
+    const component: CustomComponent =
+      this.formControlFactory.getComponent(componentDataObject);
+    this.componentList.push(component);
+
+    return component;
+  }
+
+  removeComponent(index: number) {
+    this.componentList.splice(index, 1);
   }
 }
