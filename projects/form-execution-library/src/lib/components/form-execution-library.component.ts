@@ -49,6 +49,7 @@ export class FormExecutionLibraryComponent implements OnInit {
       );
     const viewContainerRef = this.controlHost.viewContainerRef;
     const componentRef = viewContainerRef.createComponent(componentFactory);
+    debugger;
     componentRef.instance.data = formComponent.data;
 
     return formComponent;
