@@ -11,11 +11,12 @@ dependencies - Shared things. Where do we put these?
 
   * scrabble tiles - dynamically loaded - we don't know which ones we should be loading - what if a new defined. How do I prevent RExecution from changing their code.
     * if the domain adding the component to the registry rights checks before adding it, then only authorized scrabble tiles would appear.
-      - projects\form-execution-library\src\lib\models\custom-component-type.ts
+      - projects\colors-library\src\lib\colors-library.module.ts
     * how do I order them
       - execution figures out how they order there stuff
         - execution registry interface requires enough information to know how/where to load (order) the scrabble tile
         - you could tag your scrabble tile you're registering in a specific way so config knows where it should be loaded (ex: specific tab) - and then config could sort them alphabetically or whatever
+        - see projects\form-execution-library\src\lib\models\custom-component-type.ts
 
   
   * execution

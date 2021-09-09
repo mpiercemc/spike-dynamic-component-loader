@@ -12,10 +12,16 @@ import { ComponentData } from 'projects/form-execution-library/src/lib/models/co
 })
 export class ColorsLibraryModule {
   constructor(private formControlFactoryService: FormControlFactoryService) {
-    this.formControlFactoryService.registerComponentType(
-      'ColorsLibraryComponent',
-      this.getColorsComponentType
-    );
+    /*
+      We can rights check and only register components that the user has rights too here. (ex: which scrabble tiles should show up)
+     */
+    const shouldShowScrabbleTile = true;
+    if(shouldShowScrabbleTile){
+      this.formControlFactoryService.registerComponentType(
+        'ColorsLibraryComponent',
+        this.getColorsComponentType
+      );
+    }
   }
 
   getColorsComponentType(data: ComponentData): CustomComponent {
