@@ -1,6 +1,7 @@
 import {
   Component,
   ComponentFactoryResolver,
+  ComponentRef,
   OnInit,
   ViewChild,
   ViewRef,
@@ -8,6 +9,7 @@ import {
 import { ControlHostDirective } from '../directives/control-host.directive';
 import { CustomComponent } from '../models/custom-component';
 import { CustomComponentDataObject } from '../models/custom-component-data-object';
+import { CustomComponentType } from '../models/custom-component-type';
 import { GetFormControlsLibraryService } from '../services/get-form-controls-library.service';
 
 @Component({
@@ -29,24 +31,29 @@ export class FormExecutionLibraryComponent implements OnInit {
     let formControls = this.formControlsLibaryService.getCustomComponents();
 
     formControls.forEach((component) => {
-      this.dynamicallyLoadComponent(component);
+      this.createCustomComponent(component);
     });
   }
 
-  dynamicallyLoadComponent(formComponent: CustomComponent): CustomComponent {
+  createCustomComponent(customComponent: CustomComponent): CustomComponent {
     const componentFactory =
       this.componentFactoryResolver.resolveComponentFactory(
-        formComponent.component
+        customComponent.component
       );
-    const { instance, hostView } =
-      this.controlHost.viewContainerRef.createComponent(componentFactory);
 
-    instance.data = formComponent.data;
+    const componentRef: ComponentRef<CustomComponentType> =
+      this.controlHost.viewContainerRef.createComponent(componentFactory);
+    const { instance, hostView } = componentRef;
+
+    instance.data = customComponent.data;
     instance.removeComponentEvent.subscribe(() => {
       this.removeComponent(hostView);
     });
 
-    return formComponent;
+    // An element can be moved within the viewContainerRef using the move() function
+    // e.g. this.controlHost.viewContainerRef.move(componentRef, 2);
+
+    return customComponent;
   }
 
   addColorsLibraryComponent() {
@@ -62,7 +69,7 @@ export class FormExecutionLibraryComponent implements OnInit {
     const customComponent =
       this.formControlsLibaryService.addComponent(component);
 
-    this.dynamicallyLoadComponent(customComponent);
+    this.createCustomComponent(customComponent);
   }
 
   addRiskLibraryComponent() {
@@ -78,7 +85,7 @@ export class FormExecutionLibraryComponent implements OnInit {
     const customComponent =
       this.formControlsLibaryService.addComponent(component);
 
-    this.dynamicallyLoadComponent(customComponent);
+    this.createCustomComponent(customComponent);
   }
 
   removeComponent(componentRef: ViewRef) {
